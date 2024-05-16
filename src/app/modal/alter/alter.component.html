@@ -1,0 +1,36 @@
+<div style="padding: 20px;">
+  <form [formGroup]="form" (ngSubmit)="attStudent()">
+    <!-- Outros campos do formulário (como nome, endereço e celular) -->
+
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-3"
+        formControlName="nome"
+      />
+      <label for="floatingNome">Nome</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-3"
+        formControlName="endereco"
+      />
+      <label for="floatingEndereco">Endereço</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control rounded-3"
+        formControlName="celular"
+      />
+      <label for="floatingCelular">Celular</label>
+    </div>
+
+    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">
+      Atualizar
+    </button>
+  </form>
+</div>

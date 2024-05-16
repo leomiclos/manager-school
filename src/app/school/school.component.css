@@ -1,0 +1,8 @@
+tr, td, th{
+  border: solid 1px black;
+  padding: 30px;
+}
+
+button{
+  margin: 10px;
+}

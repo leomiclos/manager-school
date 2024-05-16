@@ -1,0 +1,31 @@
+<div style="width: 30%; display: flex; justify-content: center; flex-direction: column; align-items: center; margin-left: 30%;">
+  <div style="display: flex; flex-direction: row; justify-content: space-between">
+    <div class="buttons-group">
+      <span>
+        <button class="btn btn-success button" type="button" (click)="openInsertModal()">
+          Cadastrar
+        </button>
+      </span>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control rounded-3" style="max-width: 100%;"/>
+      <label for="floatingInput">Busque por descrição</label>
+    </div>
+  </div>
+
+  <table>
+    <tr>
+      <th>Código</th>
+      <th>Escola</th>
+    </tr>
+    <tr *ngFor="let school of schools">
+      <td>{{ school.iCodEscola }}</td>
+      <td>{{ school.sDescricao }}</td>
+      <td>
+        <button class="btn btn-primary mt-2" type="button" (click)="openAlterModal(school)">
+          Alterar
+        </button>
+      </td>
+    </tr>
+  </table>
+</div>

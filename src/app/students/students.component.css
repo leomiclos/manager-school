@@ -1,0 +1,17 @@
+th,
+tr,
+td {
+  padding: 20px;
+  border: 1px solid rgb(196, 196, 196);
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+span,
+.buttons-group {
+  margin: 5px;
+}

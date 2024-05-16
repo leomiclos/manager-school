@@ -1,0 +1,36 @@
+<div class="buttons-group">
+  <span><button class="btn btn-success" type="button" (click)="openInsertModal()">Incluir</button></span>
+</div>
+
+
+
+<div *ngIf="notHaveAlert">
+  <div class="col d-flex flex-column gap-2">
+    <p class="text-body-secondary">Não há alunos cadastrados</p>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table *ngIf="!notHaveAlert">
+    <tr>
+      <th>Cod. Aluno</th>
+      <th>Nome</th>
+      <th>Data de Nascimento</th>
+      <th>CPF</th>
+      <th>Endereço</th>
+      <th>Celular</th>
+      <th>Descricao escola</th>
+    </tr>
+    <tr *ngFor="let aluno of alunos">
+      <td>{{ aluno.iCodAluno }}</td>
+      <td>{{ aluno.sNome }}</td>
+      <td>{{ formatarData(aluno.dNascimento) }}</td>
+      <td>{{ aluno.sCPF }}</td>
+      <td>{{ aluno.sEndereco }}</td>
+      <td>{{ aluno.sCelular }}</td>
+      <td>{{ getSchoolName(aluno.iCodEscola) }}</td>
+      <span><button class="btn btn-primary mt-2" type="button" (click)="openAlterModal(aluno)">Alterar</button></span>
+
+    </tr>
+  </table>
+</div>
