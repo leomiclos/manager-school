@@ -18,7 +18,7 @@ export class SchoolService {
     return this.http.post('http://localhost:5043/escola', form);
   }
 
-  updateSchool(form: any, id: School){
-    return this.http.put(`http://localhost:5043/escola/${id.iCodEscola}`, form);
+  updateSchool(form: any, id: number){
+    return this.http.put(`http://localhost:5043/escola/${id}`, form);
   }
 }

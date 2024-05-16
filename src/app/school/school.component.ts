@@ -39,7 +39,7 @@ export class SchoolComponent {
     this.selectedSchool = school
 
     const initialState = {
-      aluno: this.selectedSchool
+      school: this.selectedSchool
     }
     this.modalRef = this.modalService.show(AlterSchoolComponent, {initialState})
   }
