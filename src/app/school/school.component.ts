@@ -7,11 +7,12 @@ import { HttpClient } from '@angular/common/http';
 import { AlterSchoolComponent } from '../modal/alter-school/alter-school.component';
 import { InsertSchoolComponent } from '../modal/insert-school/insert-school.component';
 import { ScreenComponent } from '../screen/screen.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-school',
   standalone: true,
-  imports: [CommonModule, AlterSchoolComponent, InsertSchoolComponent, ScreenComponent],
+  imports: [CommonModule, AlterSchoolComponent, InsertSchoolComponent, ScreenComponent, ReactiveFormsModule],
   templateUrl: './school.component.html',
   styleUrl: './school.component.css',
   providers: [BsModalService],
@@ -20,6 +21,9 @@ import { ScreenComponent } from '../screen/screen.component';
 export class SchoolComponent {
   notHaveAlert: boolean = true;
   selectedSchool: School | null = null
+
+  filteredSchools: School[] = [];
+  searchTerm: FormControl = new FormControl('');
 
   modalRef?: BsModalRef
 
@@ -30,9 +34,9 @@ export class SchoolComponent {
   };
   constructor(private schoolService: SchoolService,
     private modalService: BsModalService,
-  ) {}
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getAllSchools();
   }
 
@@ -42,7 +46,7 @@ export class SchoolComponent {
     const initialState = {
       school: this.selectedSchool
     }
-    this.modalRef = this.modalService.show(AlterSchoolComponent, {initialState})
+    this.modalRef = this.modalService.show(AlterSchoolComponent, { initialState })
   }
 
   openInsertModal() {
@@ -54,8 +58,6 @@ export class SchoolComponent {
   getAllSchools() {
     this.schoolService.getAllSchools().subscribe((data) => {
       this.schools = data;
-      console.log(this.schools);
-
 
       if (this.schools.length > 0) {
         this.school = this.schools[0];
@@ -65,4 +67,16 @@ export class SchoolComponent {
       }
     });
   }
+
+  filterSchools(term: any) {        
+    if (!term) {
+      this.getAllSchools();
+
+    } else {
+      this.schools = this.schools.filter(school =>
+        school.sDescricao.toLowerCase().includes(term.toLowerCase())
+      );
+    }
+  }
+
 }

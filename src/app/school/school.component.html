@@ -9,15 +9,17 @@
       </span>
     </div>
     <div class="form-floating mb-3">
-      <input type="email" class="form-control rounded-3" style="max-width: 100%;"/>
+      <input type="text" class="form-control rounded-3" style="max-width: 100%;" placeholder="Busque por descrição" (input)="filterSchools(searchTerm.value)"  [formControl]="searchTerm" />
       <label for="floatingInput">Busque por descrição</label>
     </div>
+    
   </div>
 
   <table>
     <tr>
       <th>Código</th>
       <th>Escola</th>
+      <th></th>
     </tr>
     <tr *ngFor="let school of schools">
       <td>{{ school.iCodEscola }}</td>

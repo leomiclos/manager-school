@@ -8,18 +8,20 @@ import { InsertComponent } from '../modal/insert/insert.component';
 import { HttpClient } from '@angular/common/http';
 import { School } from '../model/school';
 import { ScreenComponent } from '../screen/screen.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-students',
   standalone: true,
-  imports: [CommonModule, AlterComponent, ScreenComponent],
+  imports: [CommonModule, AlterComponent, ScreenComponent, ReactiveFormsModule],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css'],
   providers: [BsModalService],
 
 })
 export class StudentsComponent implements OnInit {
+
   selectedStudent: Student | null = null
   alunos: Student[] = [];
   aluno: Student = {
@@ -38,6 +40,9 @@ export class StudentsComponent implements OnInit {
   notHaveAlert: boolean = true;
 
   modalRef?: BsModalRef
+  searchTerm: any;
+  students: any;
+
   constructor(private studentsService: StudentsService,
     private modalService: BsModalService,
     private http: HttpClient
@@ -50,7 +55,7 @@ export class StudentsComponent implements OnInit {
 
 
   getAllSchools() {
-    this.http.get('http://localhost:5043/escola').subscribe((response: any) => {
+    this.studentsService.getAllStudents().subscribe((response: any) => {
       this.schools = response;
     });
   }
@@ -74,7 +79,7 @@ export class StudentsComponent implements OnInit {
     const initialState = {
       aluno: this.selectedStudent
     }
-    this.modalRef = this.modalService.show(AlterComponent, {initialState})
+    this.modalRef = this.modalService.show(AlterComponent, { initialState })
   }
 
   openInsertModal() {
@@ -96,4 +101,17 @@ export class StudentsComponent implements OnInit {
       }
     });
   }
+
+  filterStudents(term: string) {
+    if (!term) {
+      this.getAllStudents();
+    } else {
+      term = term.toLowerCase();
+      this.students = this.students.filter((student: { sNome: string; sCPF: string | string[]; }) =>
+        student.sNome.toLowerCase().includes(term) || student.sCPF.includes(term)
+      );
+    }
+  }
+  
+  
 }

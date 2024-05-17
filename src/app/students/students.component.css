@@ -5,6 +5,10 @@ td {
   border: 1px solid rgb(196, 196, 196);
 }
 
+th{
+  background-color: antiquewhite;
+}
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;

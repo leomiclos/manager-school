@@ -11,6 +11,7 @@ import {
 import { School } from '../../model/school';
 import { SchoolService } from '../../school/school.service';
 import { StudentsService } from '../../students/students.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-insert',
@@ -28,7 +29,7 @@ export class InsertComponent {
     private http: HttpClient,
     private schoolService: SchoolService,
     private studentService: StudentsService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getSchools();
@@ -38,12 +39,10 @@ export class InsertComponent {
       dNascimento: new FormControl(null, Validators.required),
       sCPF: new FormControl(null, [
         Validators.required,
-        Validators.pattern('[0-9]{11}'),
       ]),
       sEndereco: new FormControl(null, Validators.required),
       sCelular: new FormControl(null, [
-        Validators.required,
-        Validators.pattern('[0-9]{11}'),
+        Validators.required
       ]),
       iCodEscola: new FormControl(null, Validators.required),
     });
@@ -56,19 +55,40 @@ export class InsertComponent {
     });
   }
 
+
   onSubmit() {
     if (this.form.valid) {
       const formData = this.form.value;
       this.studentService.insertStudent(formData).subscribe(
         (response) => {
           console.log('Dados enviados com sucesso:', response);
-          alert('Cadastro realizado com sucesso');
+          Swal.fire({
+            icon: 'success',
+            title: 'Sucesso',
+            text: 'Cadastro realizado com sucesso',
+          }).then(res => {
+            if(res){
+              window.location.reload()
+            }
+          });
         },
         (error) => {
           console.error('Erro ao enviar dados:', error);
-          // Trate o erro conforme necessário
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Houve um erro ao enviar os dados',
+          });
         }
       );
+    } else {
+      Swal.fire({
+        icon: 'info',
+        title: 'Informação',
+        text: 'Formulário inválido',
+      });
+      console.log('Formulário inválido');
     }
   }
+
 }

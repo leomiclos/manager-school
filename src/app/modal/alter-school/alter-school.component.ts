@@ -4,6 +4,7 @@ import { Student } from '../../model/student';
 import { StudentsService } from '../../students/students.service';
 import { School } from '../../model/school';
 import { SchoolService } from '../../school/school.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-alter-school',
@@ -18,7 +19,7 @@ export class AlterSchoolComponent {
 
   form!: FormGroup;
 
-  constructor(private schoolService: SchoolService) {}
+  constructor(private schoolService: SchoolService) { }
 
   ngOnInit() {
     if (this.school) {
@@ -34,23 +35,82 @@ export class AlterSchoolComponent {
 
   attStudent() {
     if (this.form.valid) {
-      const updatedStudent: School = {
+      const updatedSchool: School = {
         sDescricao: this.form.get('sDescricao')?.value,
         iCodEscola: this.school.iCodEscola
-
       };
 
-      this.schoolService.updateSchool(updatedStudent, this.school.iCodEscola).subscribe(
-        (response) => {
-          alert('Dados atualizados com sucesso')
-          console.log('Estudante atualizado com sucesso', response);
-        },
-        (error) => {
-          console.error('Erro ao atualizar o estudante', error);
+      Swal.fire({
+        title: 'Você tem certeza?',
+        text: "Você deseja atualizar os dados?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, atualize!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.schoolService.updateSchool(updatedSchool, this.school.iCodEscola).subscribe(
+            (response) => {
+              Swal.fire(
+                'Atualizado!',
+                'Dados atualizados com sucesso.',
+                'success'
+              );
+              console.log('Escola atualizada com sucesso', response);
+            },
+            (error) => {
+              Swal.fire(
+                'Erro!',
+                'Houve um erro ao atualizar a escola.',
+                'error'
+              );
+              console.error('Erro ao atualizar a escola', error);
+            }
+          );
         }
-      );
+      });
     } else {
+      Swal.fire({
+        icon: 'info',
+        title: 'Informação',
+        text: 'Formulário inválido',
+      });
       console.log('Formulário inválido');
     }
   }
+
+  delete() {
+    const id = this.school.iCodEscola;
+
+    Swal.fire({
+      title: 'Você tem certeza?',
+      text: "Você não poderá reverter isso!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, delete!'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.schoolService.deleteSchool(id).subscribe(
+          (response) => {
+            Swal.fire(
+              'Deletado!',
+              'O registro foi deletado.',
+              'success'
+            );
+          },
+          (error) => {
+            Swal.fire(
+              'Erro!',
+              'Houve um erro ao deletar o registro.',
+              'error'
+            );
+          }
+        );
+      }
+    })
+  }
+
 }

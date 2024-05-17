@@ -21,4 +21,8 @@ export class SchoolService {
   updateSchool(form: any, id: number){
     return this.http.put(`http://localhost:5043/escola/${id}`, form);
   }
+
+  deleteSchool(id: number){
+    return this.http.delete(`http://localhost:5043/escola/${id}`);
+  }
 }

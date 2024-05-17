@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SchoolService } from '../../school/school.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-insert-school',
@@ -13,30 +15,49 @@ export class InsertSchoolComponent {
   form!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private http: HttpClient
-  ){
+    private http: HttpClient,
+    private schoolsService: SchoolService
+  ) {
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.form = this.formBuilder.group({
       sDescricao: new FormControl(null, Validators.required),
     })
   }
 
-  onSubmit(){
+  onSubmit() {
     if (this.form.valid) {
       const formData = this.form.value;
-      // Enviar os dados para a API
-      this.http.post('http://localhost:5043/escola', formData).subscribe(
+      this.schoolsService.insertSchool(formData).subscribe(
         (response) => {
           console.log('Dados enviados com sucesso:', response);
-          alert('Cadastro realizado com sucesso')
+          Swal.fire({
+            icon: 'success',
+            title: 'Sucesso',
+            text: 'Cadastro realizado com sucesso',
+          }).then(res => {
+            if(res.isConfirmed){
+              window.location.reload()
+            }
+          });
         },
         (error) => {
           console.error('Erro ao enviar dados:', error);
-          // Trate o erro conforme necessário
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: 'Houve um erro ao enviar os dados',
+          });
         }
       );
+    } else {
+      Swal.fire({
+        icon: 'info',
+        title: 'Informação',
+        text: 'Formulário inválido',
+      });
+      console.log('Formulário inválido');
     }
   }
 }
