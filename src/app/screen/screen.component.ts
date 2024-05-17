@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { StudentsComponent } from '../students/students.component';
 import { SchoolComponent } from '../school/school.component';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-screen',
   standalone: true,
-  imports: [StudentsComponent, SchoolComponent, RouterOutlet],
+  imports: [StudentsComponent, SchoolComponent],
   templateUrl: './screen.component.html',
   styleUrl: './screen.component.css'
 })

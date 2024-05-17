@@ -6,11 +6,12 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { AlterSchoolComponent } from '../modal/alter-school/alter-school.component';
 import { InsertSchoolComponent } from '../modal/insert-school/insert-school.component';
+import { ScreenComponent } from '../screen/screen.component';
 
 @Component({
   selector: 'app-school',
   standalone: true,
-  imports: [CommonModule, AlterSchoolComponent, InsertSchoolComponent],
+  imports: [CommonModule, AlterSchoolComponent, InsertSchoolComponent, ScreenComponent],
   templateUrl: './school.component.html',
   styleUrl: './school.component.css',
   providers: [BsModalService],

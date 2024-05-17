@@ -7,12 +7,13 @@ import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { InsertComponent } from '../modal/insert/insert.component';
 import { HttpClient } from '@angular/common/http';
 import { School } from '../model/school';
+import { ScreenComponent } from '../screen/screen.component';
 
 
 @Component({
   selector: 'app-students',
   standalone: true,
-  imports: [CommonModule, AlterComponent],
+  imports: [CommonModule, AlterComponent, ScreenComponent],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css'],
   providers: [BsModalService],

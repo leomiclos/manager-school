@@ -30,9 +30,7 @@ export class LoginComponent {
 
   onSubmit(){
     if(this.user.user === this.loginForm.value.user && this.user.password === this.loginForm.value.password){
-      console.log('logou');
-
-      this.router.navigate(['/screen']);
+      this.router.navigate(['/students']);
     }
   }
 }

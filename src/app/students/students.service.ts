@@ -25,5 +25,6 @@ export class StudentsService {
   updateStudent(student: Student): Observable<Student> {
     return this.http.put<Student>(`http://localhost:5043/alunos/${student.iCodAluno}`, student);
   }
+  
 
 }
