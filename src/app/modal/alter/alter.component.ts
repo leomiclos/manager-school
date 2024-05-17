@@ -44,8 +44,6 @@ export class AlterComponent implements OnInit {
   getAllSchools() {
     this.schoolService.getAllSchools().subscribe((response: any) => {
       this.schools = response;
-      console.log(this.schools);
-
     });
   }
 

@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { StudentsService } from './students.service';
 import { Student } from '../model/student';
 import { CommonModule } from '@angular/common';
 import { AlterComponent } from '../modal/alter/alter.component';
-import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { InsertComponent } from '../modal/insert/insert.component';
-import { HttpClient } from '@angular/common/http';
 import { School } from '../model/school';
 import { HeaderComponent } from '../header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -46,7 +45,6 @@ export class StudentsComponent implements OnInit {
   constructor(private studentsService: StudentsService,
     private schoolService: SchoolService,
     private modalService: BsModalService,
-    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -76,7 +74,6 @@ export class StudentsComponent implements OnInit {
 
   openAlterModal(aluno: Student) {
     this.selectedStudent = aluno
-
     const initialState = {
       aluno: this.selectedStudent
     }

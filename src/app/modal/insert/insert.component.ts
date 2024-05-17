@@ -37,20 +37,15 @@ export class InsertComponent {
     this.form = new FormGroup({
       sNome: new FormControl(null, Validators.required),
       dNascimento: new FormControl(null, Validators.required),
-      sCPF: new FormControl(null, [
-        Validators.required,
-      ]),
+      sCPF: new FormControl(null, [Validators.required,]),
       sEndereco: new FormControl(null, Validators.required),
-      sCelular: new FormControl(null, [
-        Validators.required
-      ]),
+      sCelular: new FormControl(null, [Validators.required]),
       iCodEscola: new FormControl(null, Validators.required),
     });
   }
 
   getSchools() {
     this.schoolService.getAllSchools().subscribe((response) => {
-      console.log(response);
       this.schools = response;
     });
   }

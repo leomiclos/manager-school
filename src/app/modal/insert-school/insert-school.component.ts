@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SchoolService } from '../../school/school.service';
@@ -15,7 +14,6 @@ export class InsertSchoolComponent {
   form!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private http: HttpClient,
     private schoolsService: SchoolService
   ) {
   }
@@ -31,7 +29,6 @@ export class InsertSchoolComponent {
       const formData = this.form.value;
       this.schoolsService.insertSchool(formData).subscribe(
         (response) => {
-          console.log('Dados enviados com sucesso:', response);
           Swal.fire({
             icon: 'success',
             title: 'Sucesso',

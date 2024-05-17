@@ -3,11 +3,10 @@ import { School } from '../model/school';
 import { CommonModule } from '@angular/common';
 import { SchoolService } from './school.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { HttpClient } from '@angular/common/http';
 import { AlterSchoolComponent } from '../modal/alter-school/alter-school.component';
 import { InsertSchoolComponent } from '../modal/insert-school/insert-school.component';
 import { HeaderComponent } from '../header/header.component';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-school',
@@ -71,11 +70,8 @@ export class SchoolComponent {
   }
 
   filterSchools(term: any) {
-    console.log(term);
-
     if (!term) {
       this.getAllSchools();
-
     } else {
       this.schools = this.schools.filter(school =>
         school.sDescricao.toLowerCase().includes(term.toLowerCase())

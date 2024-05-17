@@ -27,8 +27,6 @@ export class AlterSchoolComponent {
         sDescricao: new FormControl(this.school.sDescricao, Validators.required),
       });
     }
-    console.log(this.school);
-
   }
 
 
