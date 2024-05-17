@@ -1,47 +1,50 @@
-<div style="display: flex; flex-direction: row; justify-content: space-between">
-  <div class="buttons-group">
-    <span>
-      <button class="btn btn-success button" type="button" (click)="openInsertModal()">
-        Cadastrar
-      </button>
-    </span>
+<div class="grouped" >
+  <div class="group-actions">
+    <div class="buttons-group">
+      <span>
+        <button
+          class="btn btn-success button"
+          type="button"
+          (click)="openInsertModal()"
+        >
+          Cadastrar
+        </button>
+      </span>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control rounded-3" style="max-width: 100%" placeholder="Busque por descrição" [(ngModel)]="searchTerm" (keyup)="filterStudents(searchTerm)"/>
+      <label for="floatingInput">Busque por nome ou CPF</label>
+    </div>
   </div>
-  <div class="form-floating mb-3">
-    <input type="text" class="form-control rounded-3" style="max-width: 100%;" placeholder="Busque por descrição" (input)="filterStudents(searchTerm.value)"  [formControl]="searchTerm" />
-    <label for="floatingInput">Busque por descrição</label>
+
+  <div *ngIf="notHaveAlert">
+    <div class="col d-flex flex-column gap-2">
+      <p class="text-body-secondary">Não há alunos cadastrados</p>
+    </div>
   </div>
-  
-</div>
 
-
-
-<div *ngIf="notHaveAlert">
-  <div class="col d-flex flex-column gap-2">
-    <p class="text-body-secondary">Não há alunos cadastrados</p>
+  <div class="table-responsive">
+    <table *ngIf="!notHaveAlert">
+      <tr>
+        <th>Cod. Aluno</th>
+        <th>Nome</th>
+        <th>Data de Nascimento</th>
+        <th>CPF</th>
+        <th>Endereço</th>
+        <th>Celular</th>
+        <th>Descricao escola</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let aluno of alunos">
+        <td>{{ aluno.iCodAluno }}</td>
+        <td>{{ aluno.sNome }}</td>
+        <td>{{ formatarData(aluno.dNascimento) }}</td>
+        <td>{{ aluno.sCPF }}</td>
+        <td>{{ aluno.sEndereco }}</td>
+        <td>{{ aluno.sCelular }}</td>
+        <td>{{ getSchoolName(aluno.iCodEscola) }}</td>
+        <span><button class="btn btn-primary mt-2" type="button" (click)="openAlterModal(aluno)">Alterar</button></span>
+      </tr>
+    </table>
   </div>
-</div>
-
-<div class="table-responsive">
-  <table *ngIf="!notHaveAlert">
-    <tr>
-      <th>Cod. Aluno</th>
-      <th>Nome</th>
-      <th>Data de Nascimento</th>
-      <th>CPF</th>
-      <th>Endereço</th>
-      <th>Celular</th>
-      <th>Descricao escola</th>
-    </tr>
-    <tr *ngFor="let aluno of alunos">
-      <td>{{ aluno.iCodAluno }}</td>
-      <td>{{ aluno.sNome }}</td>
-      <td>{{ formatarData(aluno.dNascimento) }}</td>
-      <td>{{ aluno.sCPF }}</td>
-      <td>{{ aluno.sEndereco }}</td>
-      <td>{{ aluno.sCelular }}</td>
-      <td>{{ getSchoolName(aluno.iCodEscola) }}</td>
-      <span><button class="btn btn-primary mt-2" type="button" (click)="openAlterModal(aluno)">Alterar</button></span>
-
-    </tr>
-  </table>
 </div>

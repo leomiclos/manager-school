@@ -22,13 +22,13 @@ export class StudentsService {
     return this.http.post('http://localhost:5043/alunos', formData)
   }
 
-  updateStudent(student: Student): Observable<Student> {
-    return this.http.put<Student>(`http://localhost:5043/alunos/${student.iCodAluno}`, student);
+  updateStudent(student: Student, id: number): Observable<Student> {
+    return this.http.put<Student>(`http://localhost:5043/alunos/${id}`, student);
   }
 
   deleteStudent(id: number): Observable<Student> {
     return this.http.delete<Student>(`http://localhost:5043/alunos/${id}`);
   }
-  
+
 
 }

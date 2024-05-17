@@ -4,13 +4,13 @@ import { SchoolComponent } from '../school/school.component';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-screen',
+  selector: 'app-header',
   standalone: true,
   imports: [StudentsComponent, SchoolComponent],
-  templateUrl: './screen.component.html',
-  styleUrl: './screen.component.css'
+  templateUrl: './header.component.html',
+  styleUrl: './header.component.css'
 })
-export class ScreenComponent {
+export class HeaderComponent {
 
     constructor(private router: Router){
 

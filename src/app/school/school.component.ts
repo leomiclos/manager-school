@@ -6,13 +6,13 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { HttpClient } from '@angular/common/http';
 import { AlterSchoolComponent } from '../modal/alter-school/alter-school.component';
 import { InsertSchoolComponent } from '../modal/insert-school/insert-school.component';
-import { ScreenComponent } from '../screen/screen.component';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from '../header/header.component';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-school',
   standalone: true,
-  imports: [CommonModule, AlterSchoolComponent, InsertSchoolComponent, ScreenComponent, ReactiveFormsModule],
+  imports: [CommonModule, AlterSchoolComponent, InsertSchoolComponent, HeaderComponent, ReactiveFormsModule, FormsModule],
   templateUrl: './school.component.html',
   styleUrl: './school.component.css',
   providers: [BsModalService],
@@ -23,9 +23,11 @@ export class SchoolComponent {
   selectedSchool: School | null = null
 
   filteredSchools: School[] = [];
-  searchTerm: FormControl = new FormControl('');
 
   modalRef?: BsModalRef
+
+  searchTerm: any;
+
 
   schools: School[] = [];
   school: School = {
@@ -68,7 +70,9 @@ export class SchoolComponent {
     });
   }
 
-  filterSchools(term: any) {        
+  filterSchools(term: any) {
+    console.log(term);
+
     if (!term) {
       this.getAllSchools();
 

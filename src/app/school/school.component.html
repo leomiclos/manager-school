@@ -1,6 +1,6 @@
 
 <div style="width: 30%; display: flex; justify-content: center; flex-direction: column; align-items: center; margin-left: 30%;">
-  <div style="display: flex; flex-direction: row; justify-content: space-between">
+  <div style="display: flex; flex-direction: row; justify-content: flex-start">
     <div class="buttons-group">
       <span>
         <button class="btn btn-success button" type="button" (click)="openInsertModal()">
@@ -8,14 +8,23 @@
         </button>
       </span>
     </div>
+
     <div class="form-floating mb-3">
-      <input type="text" class="form-control rounded-3" style="max-width: 100%;" placeholder="Busque por descrição" (input)="filterSchools(searchTerm.value)"  [formControl]="searchTerm" />
+      <input type="text" class="form-control rounded-3" style="max-width: 100%;" (keyup)="filterSchools(searchTerm)"  [(ngModel)]="searchTerm" />
       <label for="floatingInput">Busque por descrição</label>
     </div>
-    
+
   </div>
 
-  <table>
+  <div *ngIf="notHaveAlert">
+    <div class="col d-flex flex-column gap-2">
+      <p class="text-body-secondary">Não há alunos cadastrados</p>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table *ngIf="!notHaveAlert">
+
     <tr>
       <th>Código</th>
       <th>Escola</th>

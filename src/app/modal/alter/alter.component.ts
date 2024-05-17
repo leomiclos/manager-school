@@ -3,11 +3,14 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { StudentsService } from '../../students/students.service';
 import { Student } from '../../model/student';
 import Swal from 'sweetalert2';
+import { SchoolService } from '../../school/school.service';
+import { School } from '../../model/school';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-alter',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './alter.component.html',
   styleUrl: './alter.component.css',
 })
@@ -15,36 +18,55 @@ export class AlterComponent implements OnInit {
 
   @Input() aluno!: Student;
 
+  schools: School[] = []
+
   form!: FormGroup;
 
-  constructor(private studentsService: StudentsService) { }
+  constructor(private studentsService: StudentsService, private schoolService: SchoolService) { }
 
   ngOnInit() {
+    this.getAllSchools()
+
+
     if (this.aluno) {
       this.form = new FormGroup({
         nome: new FormControl(this.aluno.sNome, Validators.required),
         endereco: new FormControl(this.aluno.sEndereco, Validators.required),
         celular: new FormControl(this.aluno.sCelular, Validators.required),
+        iCodEscola: new FormControl(this.aluno.iCodEscola, Validators.required),
+
       });
     }
 
+
+  }
+
+  getAllSchools() {
+    this.schoolService.getAllSchools().subscribe((response: any) => {
+      this.schools = response;
+      console.log(this.schools);
+
+    });
+  }
+
+  getSchoolName(iCodEscola: number): string {
+    const escola = this.schools.find(e => e.iCodEscola === iCodEscola);
+    return escola ? escola.sDescricao : 'Escola não encontrada';
   }
 
 
-
   attStudent() {
+    const id = this.aluno.iCodAluno
+
     if (this.form.valid) {
-      const updatedStudent: Student = {
+      const updatedStudent: any = {
         sNome: this.form.get('nome')?.value,
         sEndereco: this.form.get('endereco')?.value,
         sCelular: this.form.get('celular')?.value,
-        dNascimento: '',
-        iCodAluno: 0,
-        iCodEscola: 0,
-        sCPF: ''
+        iCodEscola: this.form.get('iCodEscola')?.value,
       };
 
-      this.studentsService.updateStudent(updatedStudent).subscribe(
+      this.studentsService.updateStudent(updatedStudent, id).subscribe(
         (response) => {
           Swal.fire({
             icon: 'success',

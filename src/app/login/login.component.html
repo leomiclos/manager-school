@@ -1,30 +1,30 @@
+<body>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="screen">
+      <div class="form">
+        <div class="form-group"><h1>Login</h1></div>
+        <div class="form-group-user">
+          <label for="user">Usuário:</label>
+          <input
+            type="text"
+            formControlName="user"
+            class="form-control"
+            id="user"
+          />
+        </div>
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="screen">
-    <div class="form">
-      <div class="form-group-user">
-        <label for="user">Usuário:</label>
-        <input
-          type="text"
-          formControlName="user"
-          class="form-control"
-          id="user"
-        />
+        <div class="form-group-pass">
+          <label for="password">Senha:</label>
+          <input
+            type="password"
+            formControlName="password"
+            class="form-control"
+            id="password"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-success button">Entrar</button>
       </div>
-
-      <div class="form-group-pass">
-        <label for="password">Senha:</label>
-        <input
-          type="password"
-          formControlName="password"
-          class="form-control"
-          id="password"
-        />
-      </div>
-
-
-
-      <button type="submit" class="btn btn-success button">Entrar</button>
     </div>
-  </div>
-</form>
+  </form>
+</body>

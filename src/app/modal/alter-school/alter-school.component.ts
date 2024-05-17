@@ -56,8 +56,11 @@ export class AlterSchoolComponent {
                 'Atualizado!',
                 'Dados atualizados com sucesso.',
                 'success'
-              );
-              console.log('Escola atualizada com sucesso', response);
+              ).then(res => {
+                if(res.isConfirmed){
+                  window.location.reload()
+                }
+              })
             },
             (error) => {
               Swal.fire(

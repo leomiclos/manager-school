@@ -7,14 +7,15 @@ import { BsModalRef, BsModalService, ModalModule } from 'ngx-bootstrap/modal';
 import { InsertComponent } from '../modal/insert/insert.component';
 import { HttpClient } from '@angular/common/http';
 import { School } from '../model/school';
-import { ScreenComponent } from '../screen/screen.component';
+import { HeaderComponent } from '../header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SchoolService } from '../school/school.service';
 
 
 @Component({
   selector: 'app-students',
   standalone: true,
-  imports: [CommonModule, AlterComponent, ScreenComponent, ReactiveFormsModule],
+  imports: [CommonModule, AlterComponent, HeaderComponent, ReactiveFormsModule, FormsModule],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css'],
   providers: [BsModalService],
@@ -41,9 +42,9 @@ export class StudentsComponent implements OnInit {
 
   modalRef?: BsModalRef
   searchTerm: any;
-  students: any;
 
   constructor(private studentsService: StudentsService,
+    private schoolService: SchoolService,
     private modalService: BsModalService,
     private http: HttpClient
   ) { }
@@ -55,7 +56,7 @@ export class StudentsComponent implements OnInit {
 
 
   getAllSchools() {
-    this.studentsService.getAllStudents().subscribe((response: any) => {
+    this.schoolService.getAllSchools().subscribe((response: any) => {
       this.schools = response;
     });
   }
@@ -90,8 +91,6 @@ export class StudentsComponent implements OnInit {
   getAllStudents() {
     this.studentsService.getAllStudents().subscribe(data => {
       this.alunos = data;
-
-
       if (this.alunos.length > 0) {
         this.aluno = this.alunos[0];
         this.formatarData(this.aluno.dNascimento)
@@ -102,16 +101,18 @@ export class StudentsComponent implements OnInit {
     });
   }
 
-  filterStudents(term: string) {
+  filterStudents(term: any) {
+    console.log(term);
+
     if (!term) {
-      this.getAllStudents();
+      this.getAllStudents()
     } else {
       term = term.toLowerCase();
-      this.students = this.students.filter((student: { sNome: string; sCPF: string | string[]; }) =>
-        student.sNome.toLowerCase().includes(term) || student.sCPF.includes(term)
+      this.alunos = this.alunos.filter((aluno: any) =>
+        aluno.sNome.toLowerCase().includes(term) || aluno.sCPF.includes(term)
       );
     }
   }
-  
-  
+
+
 }

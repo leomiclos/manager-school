@@ -3,31 +3,29 @@
     <!-- Outros campos do formulário (como nome, endereço e celular) -->
 
     <div class="form-floating mb-3">
-      <input
-        type="text"
-        class="form-control rounded-3"
-        formControlName="nome"
-      />
+      <input type="text" class="form-control rounded-3"  formControlName="nome"/>
       <label for="floatingNome">Nome</label>
     </div>
 
     <div class="form-floating mb-3">
-      <input
-        type="text"
-        class="form-control rounded-3"
-        formControlName="endereco"
-      />
+      <input type="text" class="form-control rounded-3" formControlName="endereco"/>
       <label for="floatingEndereco">Endereço</label>
     </div>
 
     <div class="form-floating mb-3">
-      <input
-        type="text"
-        class="form-control rounded-3"
-        formControlName="celular"
-      />
+      <input type="text" class="form-control rounded-3" formControlName="celular"/>
       <label for="floatingCelular">Celular</label>
     </div>
+
+    <div>
+      <label for="iCodEscola">Selecione uma escola:</label>
+      <select formControlName="iCodEscola" class="form-floating form-control mb-3">
+        <option *ngFor="let school of schools" [value]="school.iCodEscola">
+          {{ school.sDescricao }}
+        </option>
+      </select>
+    </div>
+
 
     <div>
       <button class="w-80 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">
